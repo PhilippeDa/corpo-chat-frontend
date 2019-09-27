@@ -1,23 +1,17 @@
+import * as _ from 'lodash'
+
+
 export const AuthService = {
+    loggedInUser : [],
     signup,
-    login,
-    logout,
-    currentSession
+    login
 };
 
 
-async function currentSession(){
-     return true;
-}
+async function signup(email, password) {
+    const data = {email,password};
 
-async function logout(){
-    return true;
-}
-
-async function signup(firstName, lastName, role, username, password) {
-    const data = {firstName, lastName, role, username, password};
-
-    const requestOptions = fetch('https://localhost:3001/signup', {
+    const call  = fetch('http://localhost:3001/signup', {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
         mode: 'cors', // no-cors, *cors, same-origin
         credentials: 'same-origin', // include, *same-origin, omit
@@ -27,10 +21,18 @@ async function signup(firstName, lastName, role, username, password) {
         },
         body: JSON.stringify(data), // body data type must match "Content-Type" header
     })
+    await call;
+    return;
+}
 
-    await requestOptions;
+async function logout(email){
+   const currentUser =  this.loggedInUser.find((user) => {
+        user === email;
+   })
 
-    return
+   if(currentUser){
+       currentUser['']
+   }
 }
 
 async function login(email, password) {
@@ -49,7 +51,7 @@ async function login(email, password) {
     let response = await call;
     if(response){
         const {user, token} = await response.json();
-        localStorage.setItem(user, token);
+        localStorage.setItem('corpoChat', token);
         console.log(localStorage.getItem(user))
     }
     return;

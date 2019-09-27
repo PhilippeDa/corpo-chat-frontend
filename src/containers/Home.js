@@ -33,7 +33,7 @@ export default class Home extends Component {
   }
 
   renderUsersList(users) {
-    return [{}].concat(users.items).map(
+    return [{}].concat(users).map(
         (user) =>
             <div>
                 <h4>

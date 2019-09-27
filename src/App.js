@@ -34,8 +34,6 @@ class App extends Component {
         socket.emit('token',{})
       })
 
-      // await AuthService.currentSession();
-      // this.userHasAuthenticated(true);
     }
     catch(err) {
         alert(err);
@@ -50,9 +48,8 @@ class App extends Component {
 
   handleLogout = async event => {
     try{
-      await AuthService.logout();
       this.userHasAuthenticated(false);
-      localStorage.removeItem('philippe.dagenais@secretCorp.com')
+      localStorage.removeItem('corpoChat')
       this.props.history.push("/login");
     }catch(err){
 

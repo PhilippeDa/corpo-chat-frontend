@@ -6,6 +6,7 @@ import {
   ControlLabel
 } from "react-bootstrap";
 import LoaderButton from "../components/LoaderButton";
+import { AuthService } from "../services/AuthService";
 import "./Signup.css";
 
 export default class Signup extends Component {
@@ -44,16 +45,22 @@ export default class Signup extends Component {
     event.preventDefault();
 
     this.setState({ isLoading: true });
-
-    this.setState({ newUser: "test" });
-
+    this.setState({ newUser: {email:this.state.email, password: this.state.password} })
     this.setState({ isLoading: false });
+   
   }
 
   handleConfirmationSubmit = async event => {
     event.preventDefault();
-
+    
     this.setState({ isLoading: true });
+    await AuthService.signup(this.state.newUser).then(()=>{
+      this.props.history.push("/login");
+      this.setState({ isLoading: false });
+    }).catch((err) => {
+      this.setState({ isLoading: false });
+   });
+
   }
 
   renderConfirmationForm() {
